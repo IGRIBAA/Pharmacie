@@ -1,6 +1,9 @@
 <script setup>
-import { reactive } from 'vue'
+import { reactive, watch } from 'vue'
 import { Film } from '../Film.js'
+
+const props = defineProps(["critere"])
+
 const apiKey = "af1e1c8f8ad6efb5b326eabaffa38b8a";
 const url =
       "https://api.themoviedb.org/3/search/movie?api_key=" +
@@ -11,7 +14,7 @@ const listeFilms = reactive([]);
 
 function getFilms() {
     const fetchOptions = { method: "GET" };
-    fetch(url + "Jardin", fetchOptions)
+    fetch(url + props.critere, fetchOptions)
     .then((response) => {
     return response.json();
     })
@@ -27,7 +30,11 @@ function getFilms() {
     console.log(error);
     });
 }
-getFilms()
+watch(props, (newcritere) => {
+    console.log(newcritere);
+    getFilms();
+});
+
 </script>
 <template>
     <h2>liste des films</h2>
