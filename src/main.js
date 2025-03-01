@@ -1,9 +1,15 @@
-import "./assets/base.css";
 import { createApp } from "vue";
 import App from "./App.vue";
 import { createVuetify } from "vuetify";
-import "vuetify/styles";
-import "./assets/base.css";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
 
-const vuetify = createVuetify();
+// Importez les styles de Vuetify
+import "vuetify/styles";
+
+const vuetify = createVuetify({
+  components,
+  directives,
+});
+
 createApp(App).use(vuetify).mount("#app");

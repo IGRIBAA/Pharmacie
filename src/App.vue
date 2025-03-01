@@ -28,14 +28,25 @@
         <tr v-for="med in medicaments" :key="med.id">
           <td>{{ med.denomination }}</td>
           <td>{{ med.formepharmaceutique }}</td>
-          <td><strong>{{ med.qte }}</strong> unités</td>
           <td>
-            <img :src="`https://apipharmacie.pecatte.fr/images/${med.photo}`" width="50" />
+            <strong>{{ med.qte }}</strong> unités
+          </td>
+          <td>
+            <img
+              :src="`https://apipharmacie.pecatte.fr/images/${med.photo}`"
+              width="50"
+            />
           </td>
           <td class="action-buttons">
-            <v-btn class="v-btn--danger" @click="supprimer(med.id)">❌ Supprimer</v-btn>
-            <v-btn class="v-btn--success" @click="ajouterQte(med.id, med.qte)">➕ Ajouter 1</v-btn>
-            <v-btn class="v-btn--warning" @click="diminuerQte(med.id, med.qte)">➖ Retirer 1</v-btn>
+            <v-btn class="v-btn--danger" @click="supprimer(med.id)"
+              >❌ Supprimer</v-btn
+            >
+            <v-btn class="v-btn--success" @click="ajouterQte(med.id, med.qte)"
+              >➕ Ajouter 1</v-btn
+            >
+            <v-btn class="v-btn--warning" @click="diminuerQte(med.id, med.qte)"
+              >➖ Retirer 1</v-btn
+            >
           </td>
         </tr>
       </tbody>
@@ -43,7 +54,9 @@
 
     <!-- 🚀 Bouton Ajouter un Médicament -->
     <div class="add-btn">
-      <v-btn color="primary" @click="ouvrirFormulaireAjout">➕ Ajouter un médicament</v-btn>
+      <v-btn color="primary" @click="ouvrirFormulaireAjout"
+        >➕ Ajouter un médicament</v-btn
+      >
     </div>
 
     <!-- 📌 MODAL FORMULAIRE D'AJOUT -->
@@ -51,10 +64,26 @@
       <v-card>
         <v-card-title>🆕 Ajouter un Médicament</v-card-title>
         <v-card-text>
-          <v-text-field v-model="nouveauMed.denomination" label="Nom du médicament" required></v-text-field>
-          <v-text-field v-model="nouveauMed.formepharmaceutique" label="Forme pharmaceutique" required></v-text-field>
-          <v-text-field v-model="nouveauMed.qte" type="number" label="Quantité" required></v-text-field>
-          <v-file-input label="Photo (Facultatif)" @change="handleFileUpload"></v-file-input>
+          <v-text-field
+            v-model="nouveauMed.denomination"
+            label="Nom du médicament"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="nouveauMed.formepharmaceutique"
+            label="Forme pharmaceutique"
+            required
+          ></v-text-field>
+          <v-text-field
+            v-model="nouveauMed.qte"
+            type="number"
+            label="Quantité"
+            required
+          ></v-text-field>
+          <v-file-input
+            label="Photo (Facultatif)"
+            @change="handleFileUpload"
+          ></v-file-input>
         </v-card-text>
         <v-card-actions>
           <v-btn color="grey" @click="dialogAjout = false">❌ Annuler</v-btn>
@@ -62,20 +91,29 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
   </v-container>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
-import { getMedicaments, ajouterMedicament, supprimerMedicament, modifierQuantite } from '/project/workspace/src/API/Api.js';
+import { ref, onMounted } from "vue";
+import {
+  getMedicaments,
+  ajouterMedicament,
+  supprimerMedicament,
+  modifierQuantite,
+} from "./API/Api.js";
 
 export default {
   setup() {
     const medicaments = ref([]);
     const search = ref("");
     const dialogAjout = ref(false);
-    const nouveauMed = ref({ denomination: "", formepharmaceutique: "", qte: 1, photo: "" });
+    const nouveauMed = ref({
+      denomination: "",
+      formepharmaceutique: "",
+      qte: 1,
+      photo: "",
+    });
 
     // Charger les médicaments dès le montage du composant
     const chargerMedicaments = () => {
@@ -89,7 +127,12 @@ export default {
     // ✅ Ouvrir correctement le formulaire d'ajout
     const ouvrirFormulaireAjout = () => {
       console.log("📌 Ouverture du formulaire d'ajout"); // Debug
-      nouveauMed.value = { denomination: "", formepharmaceutique: "", qte: 1, photo: "" }; // Réinitialiser les champs
+      nouveauMed.value = {
+        denomination: "",
+        formepharmaceutique: "",
+        qte: 1,
+        photo: "",
+      }; // Réinitialiser les champs
       dialogAjout.value = true; // ✅ Assurer que le formulaire s'affiche bien
     };
 
@@ -104,7 +147,11 @@ export default {
         alert("❌ Le champ 'Forme pharmaceutique' est obligatoire !");
         return;
       }
-      if (!nouveauMed.value.qte || isNaN(nouveauMed.value.qte) || parseInt(nouveauMed.value.qte) <= 0) {
+      if (
+        !nouveauMed.value.qte ||
+        isNaN(nouveauMed.value.qte) ||
+        parseInt(nouveauMed.value.qte) <= 0
+      ) {
         alert("❌ La quantité doit être un nombre positif !");
         return;
       }
@@ -148,19 +195,19 @@ export default {
 
     onMounted(chargerMedicaments);
 
-    return { 
-      medicaments, 
-      search, 
-      chargerMedicaments, 
-      ajouter, 
-      supprimer, 
-      ajouterQte, 
-      diminuerQte, 
-      dialogAjout, 
-      nouveauMed, 
-      handleFileUpload, 
-      ouvrirFormulaireAjout
+    return {
+      medicaments,
+      search,
+      chargerMedicaments,
+      ajouter,
+      supprimer,
+      ajouterQte,
+      diminuerQte,
+      dialogAjout,
+      nouveauMed,
+      handleFileUpload,
+      ouvrirFormulaireAjout,
     };
-  }
+  },
 };
 </script>
