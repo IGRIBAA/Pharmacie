@@ -1,4 +1,4 @@
-const API_URL = "https://apipharmacie.pecatte.fr/api/1/medicaments"; 
+const API_URL = "https://apipharmacie.pecatte.fr/api/2/medicaments"; 
 // Remplace {idpharmacie} par ton ID personnel
 
 // 📌 Récupérer la liste des médicaments (avec option de recherche)
@@ -23,7 +23,10 @@ export function ajouterMedicament(med, callback) {
     body: JSON.stringify(med)
   })
     .then(response => response.json())
-    .then(() => callback())
+    .then(() => {
+      alert("Médicament ajouté avec succès !");
+      callback();
+    })
     .catch(error => console.error("Erreur lors de l'ajout du médicament :", error));
 }
 

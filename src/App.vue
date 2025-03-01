@@ -44,21 +44,36 @@
     <v-row justify="center" class="mt-4">
       <v-btn color="primary" @click="dialogAjout = true">Ajouter un médicament</v-btn>
     </v-row>
+
+    <!-- FORMULAIRE D'AJOUT -->
+    <v-dialog v-model="dialogAjout" max-width="500">
+      <v-card>
+        <v-card-title>Ajouter un Médicament</v-card-title>
+        <v-card-text>
+          <v-text-field v-model="nouveauMed.denomination" label="Nom"></v-text-field>
+          <v-text-field v-model="nouveauMed.formepharmaceutique" label="Forme"></v-text-field>
+          <v-text-field v-model="nouveauMed.qte" type="number" label="Quantité"></v-text-field>
+          <v-file-input label="Photo" @change="handleFileUpload"></v-file-input>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="grey" @click="dialogAjout = false">Annuler</v-btn>
+          <v-btn color="green" @click="ajouter">Ajouter</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import { ref, onMounted } from 'vue';
-import { getMedicaments, ajouterMedicament, supprimerMedicament, modifierQuantite, modifierMedicament } from '/project/workspace/src/API/Api.js';
+import { getMedicaments, ajouterMedicament, supprimerMedicament, modifierQuantite } from '/project/workspace/src/API/Api.js';
 
 export default {
   setup() {
     const medicaments = ref([]);
     const search = ref("");
     const dialogAjout = ref(false);
-    const dialogModif = ref(false);
     const nouveauMed = ref({ denomination: "", formepharmaceutique: "", qte: 1, photo: "" });
-    const medicamentSelectionne = ref({});
 
     const chargerMedicaments = () => {
       getMedicaments((data) => {
@@ -76,16 +91,6 @@ export default {
       supprimerMedicament(id, chargerMedicaments);
     };
 
-    const ouvrirModification = (med) => {
-      medicamentSelectionne.value = { ...med };
-      dialogModif.value = true;
-    };
-
-    const modifier = () => {
-      modifierMedicament(medicamentSelectionne.value, chargerMedicaments);
-      dialogModif.value = false;
-    };
-
     const ajouterQte = (id, qteActuelle) => {
       const nouvelleQuantite = qteActuelle + 1;
       modifierQuantite(id, nouvelleQuantite, chargerMedicaments);
@@ -98,9 +103,30 @@ export default {
       }
     };
 
+    const handleFileUpload = (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        nouveauMed.value.photo = reader.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
     onMounted(chargerMedicaments);
 
-    return { medicaments, search, chargerMedicaments, ajouter, supprimer, ouvrirModification, modifier, ajouterQte, diminuerQte, dialogAjout, dialogModif, nouveauMed, medicamentSelectionne };
+    return { 
+      medicaments, 
+      search, 
+      chargerMedicaments, 
+      ajouter, 
+      supprimer, 
+      ajouterQte, 
+      diminuerQte, 
+      dialogAjout, 
+      nouveauMed, 
+      handleFileUpload 
+    };
   },
 };
 </script>
