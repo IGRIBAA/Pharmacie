@@ -1,10 +1,16 @@
-const API_URL = "https://apipharmacie.pecatte.fr/api/1/medicaments";
+const API_URL = "https://apipharmacie.pecatte.fr/api/1/medicaments"; 
 // Remplace {idpharmacie} par ton ID personnel
 
-// 📌 Récupérer les médicaments
+// 📌 Récupérer la liste des médicaments (avec option de recherche)
 export function getMedicaments(callback, search = "") {
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", `${API_URL}?search=${search}`, true);
+  let url = API_URL;
+
+  if (search.trim()) {
+    url += `?search=${encodeURIComponent(search)}`;
+  }
+
+  xhr.open("GET", url, true);
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
@@ -23,12 +29,8 @@ export function ajouterMedicament(med, callback) {
   xhr.open("POST", API_URL, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        callback(JSON.parse(xhr.responseText));
-      } else {
-        console.error("Erreur d'ajout :", xhr.statusText);
-      }
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      callback();
     }
   };
   xhr.send(JSON.stringify(med));
@@ -39,12 +41,8 @@ export function supprimerMedicament(id, callback) {
   const xhr = new XMLHttpRequest();
   xhr.open("DELETE", `${API_URL}/${id}`, true);
   xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        callback(JSON.parse(xhr.responseText));
-      } else {
-        console.error("Erreur de suppression :", xhr.statusText);
-      }
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      callback();
     }
   };
   xhr.send();
@@ -56,28 +54,20 @@ export function modifierMedicament(med, callback) {
   xhr.open("PUT", API_URL, true);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        callback(JSON.parse(xhr.responseText));
-      } else {
-        console.error("Erreur de modification :", xhr.statusText);
-      }
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      callback();
     }
   };
   xhr.send(JSON.stringify(med));
 }
 
-// 📌 Modifier la quantité d’un médicament (+1 ou -1)
+// 📌 Modifier la quantité (+1 ou -1)
 export function modifierQuantite(id, valeur, callback) {
   const xhr = new XMLHttpRequest();
   xhr.open("PATCH", `${API_URL}/${id}/qte/${valeur}`, true);
   xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        callback(JSON.parse(xhr.responseText));
-      } else {
-        console.error("Erreur de modification de quantité :", xhr.statusText);
-      }
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      callback();
     }
   };
   xhr.send();
