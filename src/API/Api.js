@@ -3,72 +3,58 @@ const API_URL = "https://apipharmacie.pecatte.fr/api/1/medicaments";
 
 // 📌 Récupérer la liste des médicaments (avec option de recherche)
 export function getMedicaments(callback, search = "") {
-  const xhr = new XMLHttpRequest();
   let url = API_URL;
-
+  
   if (search.trim()) {
     url += `?search=${encodeURIComponent(search)}`;
   }
 
-  xhr.open("GET", url, true);
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        callback(JSON.parse(xhr.responseText));
-      } else {
-        console.error("Erreur API :", xhr.statusText);
-      }
-    }
-  };
-  xhr.send();
+  fetch(url)
+    .then(response => response.json())
+    .then(data => callback(data))
+    .catch(error => console.error("Erreur lors de la récupération des médicaments :", error));
 }
 
 // 📌 Ajouter un médicament
 export function ajouterMedicament(med, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", API_URL, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      callback();
-    }
-  };
-  xhr.send(JSON.stringify(med));
+  fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(med)
+  })
+    .then(response => response.json())
+    .then(() => callback())
+    .catch(error => console.error("Erreur lors de l'ajout du médicament :", error));
 }
 
 // 📌 Supprimer un médicament
 export function supprimerMedicament(id, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.open("DELETE", `${API_URL}/${id}`, true);
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      callback();
-    }
-  };
-  xhr.send();
+  fetch(`${API_URL}/${id}`, { method: "DELETE" })
+    .then(response => response.json())
+    .then(() => callback())
+    .catch(error => console.error("Erreur lors de la suppression du médicament :", error));
 }
 
 // 📌 Modifier un médicament
 export function modifierMedicament(med, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.open("PUT", API_URL, true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      callback();
-    }
-  };
-  xhr.send(JSON.stringify(med));
+  fetch(API_URL, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(med)
+  })
+    .then(response => response.json())
+    .then(() => callback())
+    .catch(error => console.error("Erreur lors de la modification du médicament :", error));
 }
 
 // 📌 Modifier la quantité (+1 ou -1)
-export function modifierQuantite(id, valeur, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.open("PATCH", `${API_URL}/${id}/qte/${valeur}`, true);
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      callback();
-    }
-  };
-  xhr.send();
+export function modifierQuantite(id, nouvelleQuantite, callback) {
+  fetch(API_URL, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: id, qte: nouvelleQuantite })
+  })
+    .then(response => response.json())
+    .then(() => callback())
+    .catch(error => console.error("Erreur lors de la modification de quantité :", error));
 }

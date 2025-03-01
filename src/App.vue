@@ -33,8 +33,8 @@
           <td>
             <v-btn color="red" class="ma-2" @click="supprimer(med.id)">Supprimer</v-btn>
             <v-btn color="blue" class="ma-2" @click="ouvrirModification(med)">Modifier</v-btn>
-            <v-btn color="green" class="ma-2" @click="ajouterQte(med.id)">+1</v-btn>
-            <v-btn color="orange" class="ma-2" @click="diminuerQte(med.id)">-1</v-btn>
+            <v-btn color="green" class="ma-2" @click="ajouterQte(med.id, med.qte)">+1</v-btn>
+            <v-btn color="orange" class="ma-2" @click="diminuerQte(med.id, med.qte)">-1</v-btn>
           </td>
         </tr>
       </tbody>
@@ -44,40 +44,6 @@
     <v-row justify="center" class="mt-4">
       <v-btn color="primary" @click="dialogAjout = true">Ajouter un médicament</v-btn>
     </v-row>
-
-    <!-- FORMULAIRE D'AJOUT -->
-    <v-dialog v-model="dialogAjout" max-width="500">
-      <v-card>
-        <v-card-title>Ajouter un Médicament</v-card-title>
-        <v-card-text>
-          <v-text-field v-model="nouveauMed.denomination" label="Nom"></v-text-field>
-          <v-text-field v-model="nouveauMed.formepharmaceutique" label="Forme"></v-text-field>
-          <v-text-field v-model="nouveauMed.qte" type="number" label="Quantité"></v-text-field>
-          <v-file-input label="Photo" @change="handleFileUpload"></v-file-input>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="grey" @click="dialogAjout = false">Annuler</v-btn>
-          <v-btn color="green" @click="ajouter">Ajouter</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <!-- FORMULAIRE DE MODIFICATION -->
-    <v-dialog v-model="dialogModif" max-width="500">
-      <v-card>
-        <v-card-title>Modifier un Médicament</v-card-title>
-        <v-card-text>
-          <v-text-field v-model="medicamentSelectionne.denomination" label="Nom"></v-text-field>
-          <v-text-field v-model="medicamentSelectionne.formepharmaceutique" label="Forme"></v-text-field>
-          <v-text-field v-model="medicamentSelectionne.qte" type="number" label="Quantité"></v-text-field>
-          <v-file-input label="Photo" @change="handleFileUpload"></v-file-input>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="grey" @click="dialogModif = false">Annuler</v-btn>
-          <v-btn color="green" @click="modifier">Modifier</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-container>
 </template>
 
@@ -120,9 +86,21 @@ export default {
       dialogModif.value = false;
     };
 
+    const ajouterQte = (id, qteActuelle) => {
+      const nouvelleQuantite = qteActuelle + 1;
+      modifierQuantite(id, nouvelleQuantite, chargerMedicaments);
+    };
+
+    const diminuerQte = (id, qteActuelle) => {
+      if (qteActuelle > 0) {
+        const nouvelleQuantite = qteActuelle - 1;
+        modifierQuantite(id, nouvelleQuantite, chargerMedicaments);
+      }
+    };
+
     onMounted(chargerMedicaments);
 
-    return { medicaments, search, chargerMedicaments, ajouter, supprimer, ouvrirModification, modifier, dialogAjout, dialogModif, nouveauMed, medicamentSelectionne };
+    return { medicaments, search, chargerMedicaments, ajouter, supprimer, ouvrirModification, modifier, ajouterQte, diminuerQte, dialogAjout, dialogModif, nouveauMed, medicamentSelectionne };
   },
 };
 </script>
