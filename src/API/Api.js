@@ -1,7 +1,6 @@
-const API_URL = "https://apipharmacie.pecatte.fr/api/1/medicaments";
-// Remplace {idpharmacie} par ton ID personnel
+const API_URL = "https://apipharmacie.pecatte.fr/api/15/medicaments";
 
-// 📌 Récupérer la liste des médicaments (avec option de recherche)
+// récupérer la liste des médicaments (avec option de recherche)
 export function getMedicaments(callback, search = "") {
   let url = API_URL;
 
@@ -17,7 +16,7 @@ export function getMedicaments(callback, search = "") {
     );
 }
 
-// 📌 Ajouter un médicament
+//ajouter médicament
 export function ajouterMedicament(med, callback) {
   fetch(API_URL, {
     method: "POST",
@@ -34,7 +33,7 @@ export function ajouterMedicament(med, callback) {
     );
 }
 
-// 📌 Supprimer un médicament
+// Supprimer médicament
 export function supprimerMedicament(id, callback) {
   fetch(`${API_URL}/${id}`, { method: "DELETE" })
     .then((response) => response.json())
@@ -44,7 +43,7 @@ export function supprimerMedicament(id, callback) {
     );
 }
 
-// 📌 Modifier un médicament
+// modifier  un médicament
 export function modifierMedicament(med, callback) {
   fetch(API_URL, {
     method: "PUT",
@@ -58,7 +57,7 @@ export function modifierMedicament(med, callback) {
     );
 }
 
-// 📌 Modifier la quantité (+1 ou -1)
+// modifier la quantité (+1 ou -1)
 export function modifierQuantite(id, nouvelleQuantite, callback) {
   fetch(API_URL, {
     method: "PUT",
