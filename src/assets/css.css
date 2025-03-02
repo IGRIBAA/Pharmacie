@@ -1,140 +1,140 @@
 /* 🌟 STYLE PROFESSIONNEL POUR LA PHARMACIE 🌟 */
 
-/* 🏥 Style général */
+/*  Style général */
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* 🌿 Conteneur principal */
-  .v-container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 20px;
-  }
-  
-  /* 🏥 Titre principal */
-  h1 {
-    text-align: center;
-    font-size: 32px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 25px;
-  }
-  
-  /* 🔍 Barre de recherche */
-  .search-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .v-text-field {
-    max-width: 500px;
-  }
-  
-  /* 📋 Tableau des médicaments */
-  .v-table {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .v-table thead {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .v-table th {
-    text-align: left;
-    padding: 16px;
-    font-size: 16px;
-  }
-  
-  .v-table td {
-    padding: 14px;
-    font-size: 14px;
-  }
-  
-  /* 🖼️ Image des médicaments */
-  .v-table img {
-    border-radius: 10px;
-    border: 2px solid #ddd;
-    width: 55px;
-    height: 55px;
-    object-fit: cover;
-  }
-  
-  /* 🎨 Boutons actions */
-  .v-btn {
-    text-transform: none;
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: 10px;
-  }
-  
-  /* 🚀 Bouton "Ajouter un médicament" */
-  .add-btn {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .add-btn .v-btn {
-    font-size: 18px;
-    padding: 12px 24px;
-  }
-  
-  /* 📌 Boutons Action (+1 / -1) */
-  .action-buttons {
-    display: flex;
-    gap: 10px;
-  }
-  
-  /* ✅ Bouton +1 */
-  .v-btn--success {
-    background-color: #28a745 !important;
-    color: white;
-  }
-  
-  /* ⚠️ Bouton -1 */
-  .v-btn--warning {
-    background-color: #ffc107 !important;
-    color: w
-  }
-  /* 📌 Alignement des colonnes du tableau */
-.v-table th, .v-table td {
-    text-align: left;
-    padding: 10px;
-  }
-  
-  /* 📌 Espacement entre les actions */
-  .action-buttons {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  
-  /* 📌 Ajuster l'icône et le texte */
-  .action-buttons .v-btn {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-  }
-  
-  /* 📌 Ajuster la taille des icônes */
-  .v-btn i {
-    font-size: 16px;
-  }
-  
-  /* 📌 Améliorer l'affichage des images */
-  .v-table img {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/*  Conteneur principal */
+.v-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+/*  Titre principal */
+h1 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+/*  Barre de recherche */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.v-text-field {
+  max-width: 500px;
+}
+
+/* 📋 Tableau des médicaments */
+.v-table {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.1);
+}
+
+.v-table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+.v-table th {
+  text-align: left;
+  padding: 16px;
+  font-size: 16px;
+}
+
+.v-table td {
+  padding: 14px;
+  font-size: 14px;
+}
+
+/*  Image des médicaments */
+.v-table img {
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+}
+
+/* Boutons actions */
+.v-btn {
+  text-transform: none;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 10px;
+}
+
+/* Bouton "Ajouter un médicament" */
+.add-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.add-btn .v-btn {
+  font-size: 18px;
+  padding: 12px 24px;
+}
+
+/*  Boutons Action (+1 / -1) */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Bouton +1 */
+.v-btn--success {
+  background-color: #28a745 !important;
+  color: white;
+}
+
+/*  Bouton -1 */
+.v-btn--warning {
+  background-color: #ffc107 !important;
+  color: w;
+}
+/*  Alignement des colonnes du tableau */
+.v-table th,
+.v-table td {
+  text-align: left;
+  padding: 10px;
+}
+
+/*  Espacement entre les actions */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/*  Ajuster l'icône et le texte */
+.action-buttons .v-btn {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+/*  Ajuster la taille des icônes */
+.v-btn i {
+  font-size: 16px;
+}
+
+/*  Améliorer l'affichage des images */
+.v-table img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
